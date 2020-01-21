@@ -2,7 +2,6 @@
 using MyroWebClient.Exceptions;
 using Newtonsoft.Json;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
 
 namespace MyroWebClient
@@ -11,14 +10,14 @@ namespace MyroWebClient
     {
         private MyroDataService _myro;
 
+        private string dbLocation = "Resources/users.json";
+        private ConcurrentDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
+
         public MyroDatabase(MyroDataService myro)
         {
             _myro = myro;
             LoadUsersInMemory();
-        }
-
-        private string dbLocation = "Resources/users.json";
-        private ConcurrentDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
+        }  
 
         private void LoadUsersInMemory()
         {
