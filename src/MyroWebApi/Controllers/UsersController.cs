@@ -5,7 +5,7 @@ using MyroWebClient.Entities;
 namespace MyroWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly MyroDataService _myro;
@@ -23,8 +23,8 @@ namespace MyroWebApi.Controllers
             return _myro.GetAllMyroData(new User { UserName = "USERNAME", Password = "PASSWORD", SchoolAbreviation = "SCHOOLABREVIATION" });
         }
 
-        [HttpGet]
-        public Grades Get(string id)
+        [HttpGet("{id}")]
+        public Grades Get([FromRoute]string id)
         {
             User user = _userDb.GetUserByKey(id);
             return _myro.GetAllMyroData(user);
