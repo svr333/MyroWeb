@@ -130,7 +130,6 @@ namespace MyroWebClient
                     else test = MakeTestWithoutWeight(chunks);
 
                     tempTerms[currentTerm].Tests.Add(test);
-                    
                 }
             }
             
@@ -163,11 +162,15 @@ namespace MyroWebClient
 
         private void AddTempTerm(string[] chunks)
         {
-            var termName = chunks[2];      
-            var obtainedScore = decimal.Parse(FilterChunk(chunks[5]));                    
-            var averageScore = (obtainedScore == -1) ? decimal.Parse(FilterChunk(chunks[10])) : decimal.Parse(FilterChunk(chunks[11]));
+            var termName = chunks[2];
+            var obtainedScore = decimal.Parse(FilterChunk(chunks[5]));
 
-            var date = (obtainedScore == -1) ? DateTime.Parse(chunks[16]) : DateTime.Parse(chunks[17]);
+            var averageScore = (obtainedScore != -1 || chunks[10].Contains("average"))
+                ? decimal.Parse(FilterChunk(chunks[11]))
+                : decimal.Parse(FilterChunk(chunks[10]));
+
+            var date = (obtainedScore != -1 || chunks[16].Contains("date"))
+                ? DateTime.Parse(chunks[17]) : DateTime.Parse(chunks[16]);
                     
             tempTerms.Add(new TempTerm()
             {
