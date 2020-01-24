@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyroWebClient;
 using MyroWebClient.Entities;
+using Newtonsoft.Json;
 
 namespace MyroWebApi.Controllers
 {
@@ -22,6 +23,13 @@ namespace MyroWebApi.Controllers
         {
             User user = _userDb.GetUserByKey(id);
             return _myro.GetAllMyroData(user);
+        }
+
+        [HttpPost("{id}")]
+        public void Get([FromRoute]string id, [FromBody]User user)
+        {
+            //var user = JsonConvert.DeserializeObject<User>(text);
+            _userDb.StoreNewUser(id, user);
         }
     }
 }
