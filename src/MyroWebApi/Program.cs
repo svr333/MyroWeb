@@ -15,7 +15,6 @@ namespace MyroWebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseWebRoot("api/MyroWeb/");
                 });
     }
 }
