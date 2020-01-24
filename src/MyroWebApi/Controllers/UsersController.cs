@@ -17,12 +17,6 @@ namespace MyroWebApi.Controllers
             _userDb = userDb;
         }
 
-        [HttpGet]
-        public Grades Get()
-        {
-            return _myro.GetAllMyroData(new User { UserName = "USERNAME", Password = "PASSWORD", SchoolAbreviation = "SCHOOLABREVIATION" });
-        }
-
         [HttpGet("{id}")]
         public Grades Get([FromRoute]string id)
         {
