@@ -22,8 +22,8 @@ namespace MyroWebClient
         private void LoadUsersInMemory()
         {
             Directory.CreateDirectory("Resources");
-            if (File.Exists(dbLocation)) File.WriteAllText(dbLocation, "");
-            StoreNewUser("2", new User { UserName = "USERNAME", Password = "PASSWORD", SchoolAbreviation = "SCHOOLABREVIATION" });
+            if (!File.Exists(dbLocation)) File.WriteAllText(dbLocation, "");
+            
 
             var json = File.ReadAllText(dbLocation);
             _users = JsonConvert.DeserializeObject<ConcurrentDictionary<string, User>>(json);
