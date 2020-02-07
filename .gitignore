@@ -331,4 +331,5 @@ ASALocalRun/
 
 # Project specific
 .builds/
+.config/
 Resources/
