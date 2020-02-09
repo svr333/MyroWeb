@@ -5,9 +5,10 @@ namespace MyroWebClient.Extensions
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddMyroWebTypes(this IServiceCollection collection)
-            => collection.AddSingleton<HttpService>()
-            .AddSingleton<MyroDataService>()
-            .AddSingleton<DataParser>()
+            => collection
+            .AddTransient<HttpService>()
+            .AddTransient<MyroDataService>()
+            .AddTransient<DataParser>()
             .AddSingleton<MyroDatabase>();
     }
 }
