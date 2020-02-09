@@ -16,6 +16,8 @@ namespace MyroWebClient
 
         public Grades GetAllMyroData(User user)
         {
+            if (user is null) throw new UserNotFoundException();
+
             if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.SchoolAbreviation))
             {
                 throw new IncompleteFormsException();
