@@ -7,12 +7,11 @@ namespace MyroWebClient
 {
     public class DataParser
     {
-        private List<TempCourse> tempCourses = new List<TempCourse>();
-        private List<TempTerm> tempTerms = new List<TempTerm>();
+        private List<TempCourse> _tempCourses = new List<TempCourse>();
+        private List<TempTerm> _tempTerms = new List<TempTerm>();
 
         public Grades ConvertDataToObject(string rawData)
         {
-            var test = rawData.Split(new string[] { "", ""}, StringSplitOptions.RemoveEmptyEntries );
             var regex = new Regex("<tr class='h3 courseName'>");
             var splits = regex.Split(rawData);
 
@@ -24,7 +23,7 @@ namespace MyroWebClient
 
                 var courseAndTeacher = GetCourseName(textInLines);
 
-                tempCourses.Add(new TempCourse
+                _tempCourses.Add(new TempCourse
                 {
                     Name = courseAndTeacher[0],
                     Teacher = courseAndTeacher[1],
@@ -32,16 +31,16 @@ namespace MyroWebClient
                 });
             }
 
-            return CreateGradesObjectFromTempCourses(tempCourses);
+            return CreateGradesObjectFromTempCourses(_tempCourses);
         }
 
-        private Grades CreateGradesObjectFromTempCourses(List<TempCourse> tempCourses)
+        private Grades CreateGradesObjectFromTempCourses(List<TempCourse> _tempCourses)
         {
             List<Term> terms = new List<Term>(); 
 
-            for (int i = 0; i < tempCourses.Count; i++)
+            for (int i = 0; i < _tempCourses.Count; i++)
             {
-                var course = tempCourses[i];
+                var course = _tempCourses[i];
 
                 // ADD ALL TERMS THAT EXIST (WITHOUT COURSES)
                 for (int j = 0; j < course.Terms.Count; j++)
@@ -102,7 +101,7 @@ namespace MyroWebClient
 
         private List<TempTerm> GetTerms(string[] textInLines)
         {
-            tempTerms = new List<TempTerm>();
+            _tempTerms = new List<TempTerm>();
 
             int currentTerm = -1;
 
@@ -129,11 +128,11 @@ namespace MyroWebClient
                     if (chunks[3] == "span class=\"Weight\"") test = MakeTestWithWeight(chunks);
                     else test = MakeTestWithoutWeight(chunks);
 
-                    tempTerms[currentTerm].Tests.Add(test);
+                    _tempTerms[currentTerm].Tests.Add(test);
                 }
             }
             
-            return tempTerms;
+            return _tempTerms;
         }
 
         #region Helper Methods
@@ -172,7 +171,7 @@ namespace MyroWebClient
             var date = (obtainedScore != -1 || chunks[16].Contains("date"))
                 ? DateTime.Parse(chunks[17]) : DateTime.Parse(chunks[16]);
                     
-            tempTerms.Add(new TempTerm()
+            _tempTerms.Add(new TempTerm()
             {
                 Name = termName,
                 Date = date,
