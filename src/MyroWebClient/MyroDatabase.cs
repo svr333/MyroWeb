@@ -12,7 +12,7 @@ namespace MyroWebClient
         private MyroDataService _myro;
 
         private string dbLocation = $"{AppDomain.CurrentDomain.BaseDirectory}/Resources/users.json";
-        private ConcurrentDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
+        private ConcurrentDictionary<string, User> _users =  new ConcurrentDictionary<string, User>();
 
         public MyroDatabase(MyroDataService myro)
         {
