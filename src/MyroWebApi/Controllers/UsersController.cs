@@ -28,7 +28,6 @@ namespace MyroWebApi.Controllers
         [HttpPost("{id}")]
         public void Get([FromRoute]string id, [FromBody]User user)
         {
-            //var user = JsonConvert.DeserializeObject<User>(text);
             _userDb.StoreNewUser(id, user);
         }
     }
