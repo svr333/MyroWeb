@@ -1,6 +1,7 @@
 ﻿using MyroWebClient.Entities;
 using MyroWebClient.Exceptions;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 
@@ -10,7 +11,7 @@ namespace MyroWebClient
     {
         private MyroDataService _myro;
 
-        private string dbLocation = "Resources/users.json";
+        private string dbLocation = $"{AppDomain.CurrentDomain.BaseDirectory}/Resources/users.json";
         private ConcurrentDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
 
         public MyroDatabase(MyroDataService myro)
@@ -21,7 +22,7 @@ namespace MyroWebClient
 
         private void LoadUsersInMemory()
         {
-            Directory.CreateDirectory("Resources");
+            Directory.CreateDirectory($"{AppDomain.CurrentDomain.BaseDirectory}/Resources");
             if (!File.Exists(dbLocation)) File.WriteAllText(dbLocation, "");
             
 
