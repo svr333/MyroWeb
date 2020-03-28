@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyroWebClient;
 using MyroWebClient.Entities;
-using Newtonsoft.Json;
 
 namespace MyroWebApi.Controllers
 {
